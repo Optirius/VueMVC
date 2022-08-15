@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <div id="testVue">
+        <input type="text" v-model="email" /> <br /> <br />
+        <input type="password" v-model="password" />  <br /> <br />
+        <button v-on:click="login"> Submit</button>  <br /> <br />
+
+        @*<h1>{{header}}</h1>*@
+
+    </div>
+</div>
+
+
+
+@{
+    await Html.RenderPartialAsync("_VueJs");
+}
+
+<script>
+
+    new Vue({
+        el: "#testVue",
+
+        data: {
+            email: "",
+            password: "",
+            header: "Vue",
+        },
+
+        methods: {
+            login: function () {
+                /*debugger;*/
+                /*this.header = this.email;*/
+                /*console.info(this.email, this.password);*/
+
+                axios.post("Home/PostData", {
+                    email: this.email,
+                    password: this.password,
+                }).then(response => {
+                    console.info(this.email, this.password);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        },
+
+    });
+
+
+
+</script>
